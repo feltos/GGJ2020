@@ -37,13 +37,13 @@ public class Player : MonoBehaviour
             hitTimer = 0.0f;
             weaponKey.enabled = true;
         }
-        Debug.Log(hit);
     }
 
     void FixedUpdate()
     {
         body.velocity = new Vector3(speed * horizontal, 0, speed * vertical); ;
-        if(hit)
+
+        if (hit)
         {
             hitTimer += Time.deltaTime;
         }
