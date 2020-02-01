@@ -8,7 +8,6 @@ public class BrokenToy : MonoBehaviour
     float repairTime = 0.0f;
     float repairPeriod = 3.0f;
     //which player collide
-    int playerIndex;
 
     void Start()
     {
