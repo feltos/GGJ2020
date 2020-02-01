@@ -52,6 +52,7 @@ public class Player : MonoBehaviour
     float speedDownTimer = 0.0f;
     [SerializeField] float speedDownPeriod;
     [SerializeField] float speedDown;
+    bool speedDownBool = false;
 
     //REDUCE OPACITY
     Material basicMaterial;
@@ -99,6 +100,7 @@ public class Player : MonoBehaviour
                 invisibleTimer = 0.0f;
                 boostTimer = 0.0f;
                 keyPower = basicKeyPower;
+                speedDownBool = false;
                 break;
 
             case BonusMalus.SPEED_UP:
@@ -143,6 +145,7 @@ public class Player : MonoBehaviour
                 foreach (Player player in enemiesPlayer)
                 {
                     player.speed = speedDown;
+                    player.speedDownBool = true;
                 }
                 speedDownTimer += Time.deltaTime;
                 if (speedDownTimer >= speedDownPeriod)
@@ -203,27 +206,30 @@ public class Player : MonoBehaviour
         {
             BonusPin bonusPin = collision.gameObject.GetComponent<BonusPin>();
             Debug.Log(bonusPin.GetBonusType(bonusPin));
+            if(!speedDownBool)
+            {
+                if (bonusPin.GetBonusType(bonusPin) == BonusPin.BonusType.SPEED_UP)
+                {
+                    bonus = BonusMalus.SPEED_UP;
+                }
+                if (bonusPin.GetBonusType(bonusPin) == BonusPin.BonusType.BOOST_KEY)
+                {
+                    bonus = BonusMalus.BOOST_KEY;
+                }
+                if (bonusPin.GetBonusType(bonusPin) == BonusPin.BonusType.STUN_ALL)
+                {
+                    bonus = BonusMalus.STUN_ALL;
+                }
+                if (bonusPin.GetBonusType(bonusPin) == BonusPin.BonusType.SPEED_DOWN_ALL)
+                {
+                    bonus = BonusMalus.SPEED_DOWN_ALL;
+                }
+                if (bonusPin.GetBonusType(bonusPin) == BonusPin.BonusType.REDUCE_OPACITY)
+                {
+                    bonus = BonusMalus.REDUCE_OPACITY;
+                }
+            }
 
-            if (bonusPin.GetBonusType(bonusPin) == BonusPin.BonusType.SPEED_UP)
-            {
-                bonus = BonusMalus.SPEED_UP;
-            }
-            if (bonusPin.GetBonusType(bonusPin) == BonusPin.BonusType.BOOST_KEY)
-            {
-                bonus = BonusMalus.BOOST_KEY;
-            }
-            if (bonusPin.GetBonusType(bonusPin) == BonusPin.BonusType.STUN_ALL)
-            {
-                bonus = BonusMalus.STUN_ALL;
-            }
-            if (bonusPin.GetBonusType(bonusPin) == BonusPin.BonusType.SPEED_DOWN_ALL)
-            {
-                bonus = BonusMalus.SPEED_DOWN_ALL;
-            }
-            if (bonusPin.GetBonusType(bonusPin) == BonusPin.BonusType.REDUCE_OPACITY)
-            {
-                bonus = BonusMalus.REDUCE_OPACITY;
-            }
 
         }
     }
