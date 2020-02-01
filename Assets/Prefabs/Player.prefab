@@ -127,6 +127,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   weaponKey: {fileID: 1767605975}
+  playerIndex: 1
+  newSpeed: 15
+  speedUpPeriod: 5
+  stunPeriod: 3
+  speedDownPeriod: 3
+  speedDown: 3
+  invisible: {fileID: 10652, guid: 0000000000000000f000000000000000, type: 0}
+  invisiblePeriod: 3
+  boostPeriod: 10
 --- !u!114 &6433720901072622785
 MonoBehaviour:
   m_ObjectHideFlags: 0
