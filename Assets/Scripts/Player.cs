@@ -87,23 +87,8 @@ public class Player : MonoBehaviour
             hit = true;
             hitTimer = 0.0f;
             weaponKey.enabled = true;
-        } 
-    }
-
-    void FixedUpdate()
-    {
-        body.velocity = new Vector3(speed * horizontal, 0, speed * vertical); ;
-
-        if (hit)
-        {
-            hitTimer += Time.deltaTime;
         }
-        if (hitTimer > hitPeriod)
-        {
-            weaponKey.enabled = false;
-            hit = false;
-        }
-        switch(bonus)
+        switch (bonus)
         {
             case BonusMalus.NOTHING:
                 speedUpTimer = 0.0f;
@@ -119,7 +104,7 @@ public class Player : MonoBehaviour
             case BonusMalus.SPEED_UP:
                 speed = newSpeed;
                 speedUpTimer += Time.deltaTime;
-                if(speedUpTimer > speedUpPeriod)
+                if (speedUpTimer > speedUpPeriod)
                 {
                     bonus = BonusMalus.NOTHING;
                 }
@@ -128,17 +113,16 @@ public class Player : MonoBehaviour
             case BonusMalus.BOOST_KEY:
                 keyPower = boostKeyPower;
                 boostTimer += Time.deltaTime;
-                Debug.Log("KEY BOOOOOOOOOOOOOOOST");
-                if(boostTimer >= boostPeriod)
+                if (boostTimer >= boostPeriod)
                 {
                     bonus = BonusMalus.NOTHING;
                 }
                 break;
 
             case BonusMalus.STUN_ALL:
-                foreach(Player player in enemiesPlayer)
+                foreach (Player player in enemiesPlayer)
                 {
-                    if(player.playerIndex != this.playerIndex)
+                    if (player.playerIndex != this.playerIndex)
                     {
                         player.bonus = BonusMalus.STUN;
                     }
@@ -149,7 +133,7 @@ public class Player : MonoBehaviour
             case BonusMalus.STUN:
                 stunTimer += Time.deltaTime;
                 speed = 0;
-                if(stunTimer > stunPeriod)
+                if (stunTimer > stunPeriod)
                 {
                     bonus = BonusMalus.NOTHING;
                 }
@@ -158,7 +142,7 @@ public class Player : MonoBehaviour
             case BonusMalus.SPEED_DOWN_ALL:
                 foreach (Player player in enemiesPlayer)
                 {
-                    player.speed = speedDown;                  
+                    player.speed = speedDown;
                 }
                 speedDownTimer += Time.deltaTime;
                 if (speedDownTimer >= speedDownPeriod)
@@ -184,12 +168,28 @@ public class Player : MonoBehaviour
             case BonusMalus.LOW_OPACITY:
                 GetComponent<MeshRenderer>().material = invisible;
                 invisibleTimer += Time.deltaTime;
-                if(invisibleTimer >= invisiblePeriod)
+                if (invisibleTimer >= invisiblePeriod)
                 {
                     bonus = BonusMalus.NOTHING;
                 }
                 break;
         }
+    }
+
+    void FixedUpdate()
+    {
+        body.velocity = new Vector3(speed * horizontal, 0, speed * vertical); ;
+
+        if (hit)
+        {
+            hitTimer += Time.deltaTime;
+        }
+        if (hitTimer > hitPeriod)
+        {
+            weaponKey.enabled = false;
+            hit = false;
+        }
+       
     }
 
     public int GetKeyPower()
