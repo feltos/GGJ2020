@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BrokenToysSpawner : MonoBehaviour
+public class Spawner : MonoBehaviour
 {
     int randomX;
     int randomY;
