@@ -20,6 +20,16 @@ public class Player : MonoBehaviour
     float hitPeriod = 0.05f;
     bool hit = false;
 
+    enum Bonus
+    {
+        NOTHING,
+        SPEED_UP,
+        BOOST_KEY,
+        STUN_ALL,
+        SPEED_DOWN_ALL,
+        REDUCE_OPACITY,
+    }
+
     void Start()
     {
         body = GetComponent<Rigidbody>();
@@ -53,4 +63,15 @@ public class Player : MonoBehaviour
             hit = false;
         }
     }
+
+    void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Bonus"))
+        {
+            BonusPin bonusPin = collision.gameObject.GetComponent<BonusPin>();
+            Debug.Log(bonusPin.GetBonusType(bonusPin));
+            
+        }
+    }
+
 }

@@ -17,7 +17,6 @@ public class BrokenToy : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(repairTime);
         if(repairStart)
         {
             repairTime += Time.deltaTime;
