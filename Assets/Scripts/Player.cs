@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
         STUN,
         SPEED_DOWN_ALL,
         REDUCE_OPACITY,
+        LOW_OPACITY,
     }
     BonusMalus bonus = BonusMalus.NOTHING;
 
@@ -58,6 +59,13 @@ public class Player : MonoBehaviour
     float invisibleTimer = 0.0f;
     [SerializeField]float invisiblePeriod;
 
+    //BOOST_KEY
+    int keyPower = 0;
+    int basicKeyPower;
+    int boostKeyPower = 1;
+    float boostTimer = 0.0f;
+    [SerializeField]float boostPeriod;
+
 
     void Start()
     {
@@ -66,6 +74,7 @@ public class Player : MonoBehaviour
         weaponKey.enabled = false;
         basicSpeed = speed;
         enemiesPlayer = GameObject.FindObjectsOfType<Player>();
+        basicKeyPower = keyPower;
     }
 
     void Update()
@@ -103,7 +112,8 @@ public class Player : MonoBehaviour
                 speedDownTimer = 0.0f;
                 GetComponent<MeshRenderer>().material = basicMaterial;
                 invisibleTimer = 0.0f;
-                Debug.Log("NOTHING");
+                boostTimer = 0.0f;
+                keyPower = basicKeyPower;
                 break;
 
             case BonusMalus.SPEED_UP:
@@ -116,6 +126,13 @@ public class Player : MonoBehaviour
                 break;
 
             case BonusMalus.BOOST_KEY:
+                keyPower = boostKeyPower;
+                boostTimer += Time.deltaTime;
+                Debug.Log("KEY BOOOOOOOOOOOOOOOST");
+                if(boostTimer >= boostPeriod)
+                {
+                    bonus = BonusMalus.NOTHING;
+                }
                 break;
 
             case BonusMalus.STUN_ALL:
@@ -150,14 +167,12 @@ public class Player : MonoBehaviour
                 }
                 break;
 
-                //TO REPAIR
             case BonusMalus.REDUCE_OPACITY:
                 foreach (Player player in enemiesPlayer)
                 {
                     if (player.playerIndex != this.playerIndex)
                     {
-                        //reduce opacity
-                        player.gameObject.GetComponent<MeshRenderer>().material = invisible;
+                        player.bonus = BonusMalus.LOW_OPACITY;
                     }
                     else
                     {
@@ -165,8 +180,21 @@ public class Player : MonoBehaviour
                     }
                 }
                 break;
-                //TO REPAIR
+
+            case BonusMalus.LOW_OPACITY:
+                GetComponent<MeshRenderer>().material = invisible;
+                invisibleTimer += Time.deltaTime;
+                if(invisibleTimer >= invisiblePeriod)
+                {
+                    bonus = BonusMalus.NOTHING;
+                }
+                break;
         }
+    }
+
+    public int GetKeyPower()
+    {
+        return keyPower;
     }
 
     void OnTriggerEnter(Collider collision)

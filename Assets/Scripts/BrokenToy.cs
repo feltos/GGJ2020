@@ -28,9 +28,13 @@ public class BrokenToy : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Player") && collision.gameObject.GetComponent<Player>().GetKeyPower() == 0)
         {
             Repair();
+        }
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Player") && collision.gameObject.GetComponent<Player>().GetKeyPower() != 0)
+        {
+            Destroy(gameObject);
         }
     }
 
