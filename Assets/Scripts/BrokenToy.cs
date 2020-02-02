@@ -7,11 +7,13 @@ public class BrokenToy : MonoBehaviour
     bool repairStart = false;
     float repairTime = 0.0f;
     float repairPeriod = 3.0f;
+    int playerIndex;
+    ScoreManager scoreManager;
     //which player collide
 
     void Start()
     {
-        
+        scoreManager = GameObject.FindGameObjectWithTag("ScoreManager").GetComponent<ScoreManager>();
     }
 
     void Update()
@@ -22,6 +24,7 @@ public class BrokenToy : MonoBehaviour
         }
         if(repairTime >= repairPeriod)
         {
+            scoreManager.SetScore(playerIndex);
             Destroy(this.gameObject);
         }
     }
@@ -30,11 +33,14 @@ public class BrokenToy : MonoBehaviour
     {
         if(collision.gameObject.layer == LayerMask.NameToLayer("Player") && collision.gameObject.GetComponent<Player>().GetKeyPower() == 0)
         {
+            playerIndex = collision.gameObject.GetComponent<Player>().playerIndex;
             Repair();
         }
         if(collision.gameObject.layer == LayerMask.NameToLayer("Player") && collision.gameObject.GetComponent<Player>().GetKeyPower() != 0)
         {
-            Destroy(gameObject);
+            playerIndex = collision.gameObject.GetComponent<Player>().playerIndex;
+            scoreManager.SetScore(playerIndex);
+            Destroy(this.gameObject);
         }
     }
 

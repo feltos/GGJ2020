@@ -20,7 +20,6 @@ public class Player : MonoBehaviour
     public string keyHit;
 
     
-
     [SerializeField] BoxCollider weaponKey;
     float hitTimer = 0.0f;
     float hitPeriod = 0.05f;
@@ -40,7 +39,7 @@ public class Player : MonoBehaviour
     }
     BonusMalus bonus = BonusMalus.NOTHING;
 
-    [SerializeField] int playerIndex;
+    public int playerIndex;
     Player[] enemiesPlayer;
 
     //SPEED_UP
