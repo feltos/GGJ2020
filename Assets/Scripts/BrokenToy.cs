@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class BrokenToy : MonoBehaviour
 {
     bool repairStart = false;
@@ -10,11 +11,14 @@ public class BrokenToy : MonoBehaviour
     float repairPeriod = 3.0f;
     int playerIndex;
     ScoreManager scoreManager;
+    [SerializeField]Behaviour blueHalo;
+    [SerializeField]Behaviour RedHalo;
 
 
     void Start()
     {
         scoreManager = GameObject.FindGameObjectWithTag("ScoreManager").GetComponent<ScoreManager>();
+        
     }
 
     void Update()
@@ -22,6 +26,17 @@ public class BrokenToy : MonoBehaviour
         if(repairStart)
         {
             repairTime += Time.deltaTime;
+            if(playerIndex == 0)
+            {
+                blueHalo.enabled = true;
+                RedHalo.enabled = false;
+            }
+            if(playerIndex == 1)
+            {
+                RedHalo.enabled = true;
+                blueHalo.enabled = false;
+            }
+
         }
         if(repairTime >= repairPeriod)
         {

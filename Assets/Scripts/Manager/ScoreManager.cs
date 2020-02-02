@@ -7,9 +7,15 @@ public class ScoreManager : MonoBehaviour
 {
     [SerializeField]Image bro;
     [SerializeField] Image ken;
+    [SerializeField] Image broWin;
+    [SerializeField] Image kenWin;
+    [SerializeField] Image broLose;
+    [SerializeField] Image kenLose;
 
     [SerializeField] Text scoreBro;
     [SerializeField] Text scoreKen;
+
+    [SerializeField]Image[] broKen;
 
     int broValue = 0;
     int kenValue = 0;
@@ -29,6 +35,7 @@ public class ScoreManager : MonoBehaviour
     {
         scoreBro.text = broValue.ToString();
         scoreKen.text = kenValue.ToString();
+    
     }
 
     void Update()
@@ -40,8 +47,15 @@ public class ScoreManager : MonoBehaviour
         switch(leader)
         {
             case Leader.EQUAL:
-                //Change image
-                if(kenValue > broValue)
+
+                foreach (Image image in broKen)
+                {
+                    image.gameObject.SetActive(false);
+                }
+                bro.gameObject.SetActive(true);
+                ken.gameObject.SetActive(true);
+
+                if (kenValue > broValue)
                 {
                     leader = Leader.KEN;
                 }
@@ -52,7 +66,14 @@ public class ScoreManager : MonoBehaviour
                 break;
 
             case Leader.BRO:
-                //Change image
+                foreach (Image image in broKen)
+                {
+                    image.gameObject.SetActive(false);
+                }
+
+                broWin.gameObject.SetActive(true);
+                kenLose.gameObject.SetActive(true);
+
                 if(broValue == kenValue)
                 {
                     leader = Leader.EQUAL;
@@ -67,7 +88,13 @@ public class ScoreManager : MonoBehaviour
                 break;
 
             case Leader.KEN:
-                //Change image
+                foreach (Image image in broKen)
+                {
+                    image.gameObject.SetActive(false);
+                }
+                kenWin.gameObject.SetActive(true);
+                broLose.gameObject.SetActive(true);
+
                 if (kenValue == broValue)
                 {
                     leader = Leader.EQUAL;

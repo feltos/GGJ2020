@@ -1,5 +1,17 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!122 &881573538
+Halo:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2025078482977649430}
+  m_Enabled: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4293475840
+  m_Size: -1.16
 --- !u!1 &8615005142805588676
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,6 +25,8 @@ GameObject:
   - component: {fileID: -1040934337097280289}
   - component: {fileID: -741102324702720869}
   - component: {fileID: 643902876}
+  - component: {fileID: 250421195143478226}
+  - component: {fileID: 643902881}
   m_Layer: 0
   m_Name: DeadRobot
   m_TagString: Untagged
@@ -48,9 +62,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3d8bc0fab8701c4fb9fa37524dc869e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  progress: {fileID: 2630686003242124648, guid: d6b2014cf16cba742b66729d43f7c103,
-    type: 3}
-  sliderPos: {fileID: 0}
+  blueHalo: {fileID: 881573538}
+  RedHalo: {fileID: 643902881}
 --- !u!54 &-1040934337097280289
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -93,6 +106,31 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 1.13, z: 0.7}
   m_Center: {x: -0.49, y: 0, z: 0.15}
+--- !u!65 &250421195143478226
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8615005142805588676}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.64, y: 1.13, z: 0.7}
+  m_Center: {x: -0.49, y: 0, z: 0.15}
+--- !u!122 &643902881
+Halo:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8615005142805588676}
+  m_Enabled: 0
+  m_Color:
+    serializedVersion: 2
+    rgba: 4278190335
+  m_Size: -1.16
 --- !u!1001 &2025078482977617334
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -182,6 +220,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a97962f7d5ba4df0823334b52c7c02c, type: 3}
+--- !u!1 &2025078482977649430 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 5a97962f7d5ba4df0823334b52c7c02c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2025078482977617334}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2025078482977746742 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 5a97962f7d5ba4df0823334b52c7c02c,
