@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     public string horizontalAxis;
     public string keyHit;
 
+    
+
     [SerializeField] BoxCollider weaponKey;
     float hitTimer = 0.0f;
     float hitPeriod = 0.05f;
@@ -85,8 +87,9 @@ public class Player : MonoBehaviour
     {
         horizontal = Input.GetAxis(horizontalAxis);
         vertical = Input.GetAxis(verticalAxis);
+      
 
-        if (Input.GetButtonDown(keyHit))
+        if (Input.GetAxis(keyHit) > 0)
         {
             hit = true;
             hitTimer = 0.0f;
@@ -185,7 +188,7 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        body.velocity = new Vector3(speed * horizontal, 0, speed * vertical); ;
+        body.velocity = new Vector3(speed * horizontal, 0, speed * vertical); 
         if(body.velocity.x == 0 && body.velocity.z == 0 && bonus != BonusMalus.STUN)
         {
             //ANIM IDLE
@@ -220,7 +223,7 @@ public class Player : MonoBehaviour
         {
             BonusPin bonusPin = collision.gameObject.GetComponent<BonusPin>();
             Debug.Log(bonusPin.GetBonusType(bonusPin));
-            if(!speedDownBool)
+            if (!speedDownBool)
             {
                 if (bonusPin.GetBonusType(bonusPin) == BonusPin.BonusType.SPEED_UP)
                 {
@@ -248,9 +251,16 @@ public class Player : MonoBehaviour
                     Destroy(collision.gameObject);
                 }
             }
+        }
 
-
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            if(collision.gameObject.name != this.gameObject.name)
+            {
+                var moveDirection = body.transform.position - collision.gameObject.GetComponent<Rigidbody>().transform.position;
+                collision.gameObject.GetComponent<Rigidbody>().AddForce(moveDirection.normalized * -2000f);
+            }
+            
         }
     }
-
 }

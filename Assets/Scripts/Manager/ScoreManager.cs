@@ -1,18 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField]Image bro;
+    [SerializeField] Image ken;
+
+    [SerializeField] Text scoreBro;
+    [SerializeField] Text scoreKen;
+
+    int broValue = 0;
+    int kenValue = 0;
+
     void Start()
     {
-        
+        scoreBro.text = broValue.ToString();
+        scoreKen.text = kenValue.ToString();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        scoreBro.text = broValue.ToString();
+        scoreKen.text = kenValue.ToString();
     }
 }
