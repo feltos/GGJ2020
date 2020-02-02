@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BrokenToy : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class BrokenToy : MonoBehaviour
     float repairPeriod = 3.0f;
     int playerIndex;
     ScoreManager scoreManager;
-    //which player collide
+
 
     void Start()
     {

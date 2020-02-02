@@ -18,11 +18,11 @@ public class Player : MonoBehaviour
     public string verticalAxis;
     public string horizontalAxis;
     public string keyHit;
-
+    public GameObject robotToMove;
     
     [SerializeField] BoxCollider weaponKey;
     float hitTimer = 0.0f;
-    float hitPeriod = 0.05f;
+    float hitPeriod = 0.1f;
     bool hit = false;
     
 
@@ -84,16 +84,32 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        
         horizontal = Input.GetAxis(horizontalAxis);
         vertical = Input.GetAxis(verticalAxis);
-      
+        Debug.Log(bonus);
 
-        if (Input.GetAxis(keyHit) > 0)
+
+        if(Input.GetAxis(keyHit) == 0)
         {
-            hit = true;
-            hitTimer = 0.0f;
-            weaponKey.enabled = true;
+            weaponKey.enabled = false;
+            hit = false;
         }
+
+        if (Input.GetAxis(keyHit) != 0)
+        {
+            weaponKey.enabled = true;
+            hit = true;
+        }
+
+        if (hit)
+        {          
+            robotToMove.GetComponent<Animation>().Play("Hit");
+            robotToMove.GetComponent<Animation>().wrapMode = WrapMode.Once;
+        }
+
+ 
+
         switch (bonus)
         {
             case BonusMalus.NOTHING:
@@ -188,32 +204,35 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         body.velocity = new Vector3(speed * horizontal, 0, speed * vertical); 
-        if(body.velocity.x == 0 && body.velocity.z == 0 && bonus != BonusMalus.STUN)
+        if(body.velocity.x == 0 && body.velocity.z == 0 && bonus != BonusMalus.STUN && !hit)
         {
             //ANIM IDLE
-            Debug.Log("Didn't move");
+
+           robotToMove.GetComponent<Animation>().Play("idle");
+           robotToMove.GetComponent<Animation>().wrapMode = WrapMode.Loop;
+
+
         }
-        if ((body.velocity.x != 0 || body.velocity.z != 0) && bonus != BonusMalus.STUN)
+        if ((body.velocity.x != 0 || body.velocity.z != 0) && bonus != BonusMalus.STUN && !hit)
         {
             //ANIM RUN
-            Debug.Log("RUN");
+
+            robotToMove.GetComponent<Animation>().Play("Run");
+            robotToMove.GetComponent<Animation>().wrapMode = WrapMode.Loop;
         }
-        if (hit)
-        {
-            //ANIM HIT
-            hitTimer += Time.deltaTime;
-        }
-        if (hitTimer > hitPeriod)
-        {
-            weaponKey.enabled = false;
-            hit = false;
-        }
+
+   
+
+     
+
+
        
     }
 
     public int GetKeyPower()
     {
         return keyPower;
+
     }
 
     void OnTriggerEnter(Collider collision)
@@ -224,6 +243,10 @@ public class Player : MonoBehaviour
             Debug.Log(bonusPin.GetBonusType(bonusPin));
             if (!speedDownBool)
             {
+
+                robotToMove.GetComponent<Animation>().Play("PowerUp");
+                robotToMove.GetComponent<Animation>().wrapMode = WrapMode.Once;
+
                 if (bonusPin.GetBonusType(bonusPin) == BonusPin.BonusType.SPEED_UP)
                 {
                     bonus = BonusMalus.SPEED_UP;

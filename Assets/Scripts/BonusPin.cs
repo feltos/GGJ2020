@@ -48,7 +48,7 @@ public class BonusPin : MonoBehaviour
                 this.gameObject.GetComponent<MeshRenderer>().material = reduce_opacity_material;
                 break;
         }
-        Debug.Log(bonusType.ToString());
+
     }
 
     void Update()
