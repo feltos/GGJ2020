@@ -12,6 +12,9 @@ public class Spawner : MonoBehaviour
     float spawnTimer;
     float SpawnPeriod = 3.0f;
 
+    [SerializeField] GameObject bonus;
+    [SerializeField] int bonusPop;
+
     void Start()
     {
         
@@ -19,9 +22,9 @@ public class Spawner : MonoBehaviour
 
     void Update()
     {
-        randomZ = Random.Range(-11, 3);
-        randomX = Random.Range(-6, 8);
-        randomY = Random.Range(25,30);
+        randomZ = Random.Range(-5, 8);
+        randomX = Random.Range(4, -14);
+        randomY = Random.Range(5,10);
         spawnTimer += Time.deltaTime;
 
         if(spawnTimer >= SpawnPeriod)
@@ -32,12 +35,18 @@ public class Spawner : MonoBehaviour
 
     void InstantiateBrokentToy()
     {
-        Instantiate(brokenToy, new Vector3(randomX, randomY, randomZ), brokenToy.transform.rotation);
-        brokentToysSpawn++;
-        if(brokentToysSpawn >= 5)
+        if (brokentToysSpawn >= bonusPop)
         {
-            //Instantiate()
+            Instantiate(bonus, new Vector3(randomX, randomY, randomZ), brokenToy.transform.rotation);
+            brokentToysSpawn = 0;
+            spawnTimer = 0.0f;
+            return;
         }
-        spawnTimer = 0.0f;
+        if (brokentToysSpawn != bonusPop)
+        {
+            Instantiate(brokenToy, new Vector3(randomX, randomY, randomZ), brokenToy.transform.rotation);
+            brokentToysSpawn++;
+            spawnTimer = 0.0f;
+        }
     }
 }

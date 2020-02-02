@@ -15,6 +15,9 @@ public class Player : MonoBehaviour
 
     Vector3 mousePosition;
     float mouseInput;
+    public string verticalAxis;
+    public string horizontalAxis;
+    public string keyHit;
 
     [SerializeField] BoxCollider weaponKey;
     float hitTimer = 0.0f;
@@ -80,10 +83,10 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        horizontal = Input.GetAxis("Horizontal");
-        vertical = Input.GetAxis("Vertical");
+        horizontal = Input.GetAxis(horizontalAxis);
+        vertical = Input.GetAxis(verticalAxis);
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetButtonDown(keyHit))
         {
             hit = true;
             hitTimer = 0.0f;
@@ -135,6 +138,7 @@ public class Player : MonoBehaviour
             case BonusMalus.STUN:
                 stunTimer += Time.deltaTime;
                 speed = 0;
+                //ANIM STUN
                 if (stunTimer > stunPeriod)
                 {
                     bonus = BonusMalus.NOTHING;
@@ -182,9 +186,19 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         body.velocity = new Vector3(speed * horizontal, 0, speed * vertical); ;
-
+        if(body.velocity.x == 0 && body.velocity.z == 0 && bonus != BonusMalus.STUN)
+        {
+            //ANIM IDLE
+            Debug.Log("Didn't move");
+        }
+        if ((body.velocity.x != 0 || body.velocity.z != 0) && bonus != BonusMalus.STUN)
+        {
+            //ANIM RUN
+            Debug.Log("RUN");
+        }
         if (hit)
         {
+            //ANIM HIT
             hitTimer += Time.deltaTime;
         }
         if (hitTimer > hitPeriod)
@@ -211,22 +225,27 @@ public class Player : MonoBehaviour
                 if (bonusPin.GetBonusType(bonusPin) == BonusPin.BonusType.SPEED_UP)
                 {
                     bonus = BonusMalus.SPEED_UP;
+                    Destroy(collision.gameObject);
                 }
                 if (bonusPin.GetBonusType(bonusPin) == BonusPin.BonusType.BOOST_KEY)
                 {
                     bonus = BonusMalus.BOOST_KEY;
+                    Destroy(collision.gameObject);
                 }
                 if (bonusPin.GetBonusType(bonusPin) == BonusPin.BonusType.STUN_ALL)
                 {
                     bonus = BonusMalus.STUN_ALL;
+                    Destroy(collision.gameObject);
                 }
                 if (bonusPin.GetBonusType(bonusPin) == BonusPin.BonusType.SPEED_DOWN_ALL)
                 {
                     bonus = BonusMalus.SPEED_DOWN_ALL;
+                    Destroy(collision.gameObject);
                 }
                 if (bonusPin.GetBonusType(bonusPin) == BonusPin.BonusType.REDUCE_OPACITY)
                 {
                     bonus = BonusMalus.REDUCE_OPACITY;
+                    Destroy(collision.gameObject);
                 }
             }
 
