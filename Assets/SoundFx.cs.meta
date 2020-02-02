@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 371cab813c0cded4c9fe7950d3543862
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - soundFx: {instanceID: 0}
+  - hitFx: {instanceID: 0}
+  - scoreFx: {instanceID: 0}
+  - bonusStunFx: {fileID: 8300000, guid: b49a77ac132301848b278d3b7b2798ed, type: 3}
+  - bonusSpeedUpFx: {instanceID: 0}
+  - bonusSpeedDownFx: {instanceID: 0}
+  - bonusOpacityFx: {instanceID: 0}
+  - bonusToolFx: {instanceID: 0}
+  - endGameFx: {instanceID: 0}
+  - fallingBodyFx: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
