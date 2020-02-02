@@ -66,4 +66,12 @@ public class BrokenToy : MonoBehaviour
         repairStart = true;
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            SoundFx.Instance.BodyFallSound();
+        }
+    }
+
 }

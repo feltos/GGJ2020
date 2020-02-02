@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -21,7 +22,14 @@ public class ScoreManager : MonoBehaviour
     int kenValue = 0;
 
     [SerializeField] int scoreToWin;
-    [SerializeField] Text victoryText;
+    bool win = false;
+
+    [SerializeField] GameObject victoryScreen;
+    [SerializeField] Sprite broWinner;
+    [SerializeField] Sprite kenWinner;
+
+    float resultTimer;
+    [SerializeField]float resultPeriod;
 
     enum Leader
     {
@@ -35,15 +43,18 @@ public class ScoreManager : MonoBehaviour
     {
         scoreBro.text = broValue.ToString();
         scoreKen.text = kenValue.ToString();
-    
+     
     }
 
     void Update()
     {
-        scoreBro.text = broValue.ToString();
-        scoreKen.text = kenValue.ToString();
+        scoreBro.text = broValue.ToString() + "/ " + scoreToWin;
+        scoreKen.text = kenValue.ToString() + "/ " + scoreToWin;
         
-
+        if(resultTimer >= resultPeriod)
+        {
+            SceneManager.LoadScene("Menu");
+        }
         switch(leader)
         {
             case Leader.EQUAL:
@@ -80,10 +91,18 @@ public class ScoreManager : MonoBehaviour
                 }
                 if(broValue >= scoreToWin)
                 {
-                    victoryText.text = "BRO";
-                    victoryText.gameObject.SetActive(true);
                     Time.timeScale = 0.0f;
-                    //Victory screen
+                    resultTimer += Time.unscaledDeltaTime;
+                }
+                if(broValue >= scoreToWin && !win)
+                {
+                    SoundFx.Instance.EndGameSound();
+                    if (victoryScreen.GetComponent<Image>() != null)
+                    {
+                        victoryScreen.GetComponent<Image>().enabled = true;
+                        victoryScreen.GetComponent<Image>().sprite = broWinner;
+                    }
+                    win = true;      
                 }
                 break;
 
@@ -99,12 +118,20 @@ public class ScoreManager : MonoBehaviour
                 {
                     leader = Leader.EQUAL;
                 }
+                if (kenValue >= scoreToWin && !win)
+                {
+                    SoundFx.Instance.EndGameSound();
+                    if (victoryScreen.GetComponent<Image>() != null)
+                    {
+                        victoryScreen.GetComponent<Image>().enabled = true;
+                        victoryScreen.GetComponent<Image>().sprite = kenWinner;
+                    }
+                    win = true;
+                }
                 if (kenValue >= scoreToWin)
                 {
-                    victoryText.text = "KEN";
-                    victoryText.gameObject.SetActive(true);
                     Time.timeScale = 0.0f;
-                    //Victory screen
+                    resultTimer += Time.unscaledDeltaTime;
                 }
                 break;
         }
@@ -120,5 +147,6 @@ public class ScoreManager : MonoBehaviour
         {
             kenValue += 10;
         }
+        SoundFx.Instance.ScoreSound();
     }
 }

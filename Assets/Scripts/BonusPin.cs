@@ -18,14 +18,13 @@ public class BonusPin : MonoBehaviour
         BOOST_KEY = 1,
         STUN_ALL = 2,
         SPEED_DOWN_ALL = 3,
-        REDUCE_OPACITY = 4,
-        LENGTH = 5
+        LENGTH = 4
     }
     BonusType bonusType = BonusType.BOOST_KEY;
 
     void Start()
     {        
-        bonusType = ((BonusType)Random.Range(0, 5));
+        bonusType = ((BonusType)Random.Range(0, 4));
         switch (bonusType)
         {
             case BonusType.SPEED_UP:
@@ -42,10 +41,6 @@ public class BonusPin : MonoBehaviour
 
             case BonusType.SPEED_DOWN_ALL:
                 this.gameObject.GetComponent<MeshRenderer>().material = speed_down_material;
-                break;
-
-            case BonusType.REDUCE_OPACITY:
-                this.gameObject.GetComponent<MeshRenderer>().material = reduce_opacity_material;
                 break;
         }
 

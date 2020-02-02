@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 643902876}
   - component: {fileID: 250421195143478226}
   - component: {fileID: 643902881}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DeadRobot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,6 +142,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WhiteSmoke
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 5a97962f7d5ba4df0823334b52c7c02c, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5a97962f7d5ba4df0823334b52c7c02c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.29000008
@@ -239,6 +243,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3707790938521762987}
     m_Modifications:
+    - target: {fileID: -4540112457704001097, guid: 73a06844eda831347920566e4649457c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 73a06844eda831347920566e4649457c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -294,10 +303,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3177209822817335443, guid: 73a06844eda831347920566e4649457c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: 73a06844eda831347920566e4649457c,
         type: 3}
       propertyPath: m_Name
       value: deadrobot
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 73a06844eda831347920566e4649457c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 933242432633725330, guid: 73a06844eda831347920566e4649457c,
         type: 3}
@@ -309,6 +328,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 5d683d0d1ba1b3741b381476944cd3de, type: 2}
+    - target: {fileID: 8931823347003011936, guid: 73a06844eda831347920566e4649457c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73a06844eda831347920566e4649457c, type: 3}
 --- !u!4 &8643040020916519396 stripped

@@ -34,8 +34,8 @@ public class Player : MonoBehaviour
         STUN_ALL,
         STUN,
         SPEED_DOWN_ALL,
-        REDUCE_OPACITY,
-        LOW_OPACITY,
+        //REDUCE_OPACITY,
+        //LOW_OPACITY,
     }
     BonusMalus bonus = BonusMalus.NOTHING;
 
@@ -71,6 +71,7 @@ public class Player : MonoBehaviour
     float boostTimer = 0.0f;
     [SerializeField]float boostPeriod;
 
+    bool playingHitsong = false;
 
     void Start()
     {
@@ -80,16 +81,16 @@ public class Player : MonoBehaviour
         basicSpeed = speed;
         enemiesPlayer = GameObject.FindObjectsOfType<Player>();
         basicKeyPower = keyPower;
+
     }
 
     void Update()
     {
-        
         horizontal = Input.GetAxis(horizontalAxis);
         vertical = Input.GetAxis(verticalAxis);
         Debug.Log(bonus);
 
-
+       
         if(Input.GetAxis(keyHit) == 0)
         {
             weaponKey.enabled = false;
@@ -100,12 +101,14 @@ public class Player : MonoBehaviour
         {
             weaponKey.enabled = true;
             hit = true;
+          
         }
 
         if (hit)
         {          
             robotToMove.GetComponent<Animation>().Play("Hit");
             robotToMove.GetComponent<Animation>().wrapMode = WrapMode.Once;
+
         }
 
  
@@ -117,11 +120,11 @@ public class Player : MonoBehaviour
                 speed = basicSpeed;
                 stunTimer = 0.0f;
                 speedDownTimer = 0.0f;
-                GetComponent<MeshRenderer>().material = basicMaterial;
                 invisibleTimer = 0.0f;
                 boostTimer = 0.0f;
                 keyPower = basicKeyPower;
                 speedDownBool = false;
+                GetComponent<MeshRenderer>().enabled = true;
                 break;
 
             case BonusMalus.SPEED_UP:
@@ -176,7 +179,7 @@ public class Player : MonoBehaviour
                 }
                 break;
 
-            case BonusMalus.REDUCE_OPACITY:
+            /*case BonusMalus.REDUCE_OPACITY:
                 foreach (Player player in enemiesPlayer)
                 {
                     if (player.playerIndex != this.playerIndex)
@@ -191,13 +194,13 @@ public class Player : MonoBehaviour
                 break;
 
             case BonusMalus.LOW_OPACITY:
-                GetComponent<MeshRenderer>().material = invisible;
+                gameObject.GetComponent<MeshRenderer>().enabled = false;
                 invisibleTimer += Time.deltaTime;
                 if (invisibleTimer >= invisiblePeriod)
                 {
                     bonus = BonusMalus.NOTHING;
                 }
-                break;
+                break;*/
         }
     }
 
@@ -241,38 +244,31 @@ public class Player : MonoBehaviour
         {
             BonusPin bonusPin = collision.gameObject.GetComponent<BonusPin>();
             Debug.Log(bonusPin.GetBonusType(bonusPin));
-            if (!speedDownBool)
-            {
-
-                robotToMove.GetComponent<Animation>().Play("PowerUp");
-                robotToMove.GetComponent<Animation>().wrapMode = WrapMode.Once;
-
+           
                 if (bonusPin.GetBonusType(bonusPin) == BonusPin.BonusType.SPEED_UP)
                 {
                     bonus = BonusMalus.SPEED_UP;
+                    SoundFx.Instance.SpeedUpSound();
                     Destroy(collision.gameObject);
                 }
                 if (bonusPin.GetBonusType(bonusPin) == BonusPin.BonusType.BOOST_KEY)
                 {
                     bonus = BonusMalus.BOOST_KEY;
+                    SoundFx.Instance.ToolSoundbonus();
                     Destroy(collision.gameObject);
                 }
                 if (bonusPin.GetBonusType(bonusPin) == BonusPin.BonusType.STUN_ALL)
                 {
                     bonus = BonusMalus.STUN_ALL;
+                    SoundFx.Instance.StunSound();
                     Destroy(collision.gameObject);
                 }
                 if (bonusPin.GetBonusType(bonusPin) == BonusPin.BonusType.SPEED_DOWN_ALL)
                 {
                     bonus = BonusMalus.SPEED_DOWN_ALL;
+                    SoundFx.Instance.SpeedDownSound();
                     Destroy(collision.gameObject);
-                }
-                if (bonusPin.GetBonusType(bonusPin) == BonusPin.BonusType.REDUCE_OPACITY)
-                {
-                    bonus = BonusMalus.REDUCE_OPACITY;
-                    Destroy(collision.gameObject);
-                }
-            }
+                } 
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
@@ -283,6 +279,11 @@ public class Player : MonoBehaviour
                 collision.gameObject.GetComponent<Rigidbody>().AddForce(moveDirection.normalized * -2000f);
             }
             
+        }
+
+        if(collision.gameObject.layer == LayerMask.NameToLayer("BrokenToy"))
+        {
+            SoundFx.Instance.HitSound();
         }
     }
 }

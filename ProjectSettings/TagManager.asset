@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - ScoreManager
+  - Bro
+  - Ken
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - BrokenToy
   - Player
   - Bonus
-  - 
+  - Ground
   - 
   - 
   - 

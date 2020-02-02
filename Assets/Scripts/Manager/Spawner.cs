@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    int randomX;
-    int randomY;
-    int randomZ;
+    float randomX;
+    float randomY;
+    float randomZ;
     int brokentToysSpawn = 0;
     [SerializeField]GameObject brokenToy;
     float spawnTimer;
@@ -22,8 +22,8 @@ public class Spawner : MonoBehaviour
 
     void Update()
     {
-        randomZ = Random.Range(-5, 8);
-        randomX = Random.Range(4, -14);
+        randomZ = Random.Range(-5.25f, 9.0f);
+        randomX = Random.Range(0.5f, -14f);
         randomY = Random.Range(5,10);
         spawnTimer += Time.deltaTime;
 
